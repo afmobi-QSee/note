@@ -58,9 +58,9 @@ docker registry 分为2个版本，第一版是python写成的，第二版是go�
     docker pull myregistrydomain.com:5000/ubuntu
     docker stop registry && docker rm -v registry
 
-##用户名密码应用
- sh -c "docker run --entrypoint htpasswd registry:2 -Bbn hello world >> auth/htpasswd" 
-   
+##用户名密码应用   
+
+ 	sh -c "docker run --entrypoint htpasswd registry:2 -Bbn hello world >> auth/htpasswd" 
     docker run -d -p 5000:5000 --restart=always --name registry \
       -v `pwd`/auth:/auth \
       -e "REGISTRY_AUTH=htpasswd" \
@@ -72,11 +72,12 @@ docker registry 分为2个版本，第一版是python写成的，第二版是go�
       registry:2
 
     docker login myregistrydomain.com:5000   
-    输入用户名密码hello:world   
-    docker logout myregistrydomain.com:5000
+  	输入用户名密码hello:world   
+	docker logout myregistrydomain.com:5000
 
-##界面  
-  docker run -d -p 8080:8080 --name web --link registry \
+##界面
+
+  	docker run -d -p 8080:8080 --name web --link registry \
            -e REGISTRY_URL=https://172.17.40.10:5000/v2 \
            -e REGISTRY_TRUST_ANY_SSL=true \
 	       -e REGISTRY_READONLY=false \
