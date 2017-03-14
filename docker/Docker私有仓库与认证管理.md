@@ -59,9 +59,8 @@ docker registry 分为2个版本，第一版是python写成的，第二版是go�
     docker stop registry && docker rm -v registry
 
 ##用户名密码应用
-    yum install httpd-tools
-    htpawwd -c htpasswd testUser
-
+ sh -c "docker run --entrypoint htpasswd registry:2 -Bbn hello world >> auth/htpasswd" 
+   
     docker run -d -p 5000:5000 --restart=always --name registry \
       -v `pwd`/auth:/auth \
       -e "REGISTRY_AUTH=htpasswd" \
@@ -72,7 +71,22 @@ docker registry 分为2个版本，第一版是python写成的，第二版是go�
       -e REGISTRY_HTTP_TLS_KEY=/certs/domain.key \
       registry:2
 
-    docker login myregistrydomain.com:5000
+    docker login myregistrydomain.com:5000   
+    输入用户名密码hello:world   
+    docker logout myregistrydomain.com:5000
+
+##界面  
+  docker run -d -p 8080:8080 --name web --link registry \
+           -e REGISTRY_URL=https://172.17.40.10:5000/v2 \
+           -e REGISTRY_TRUST_ANY_SSL=true \
+	       -e REGISTRY_READONLY=false \
+           -e REGISTRY_BASIC_AUTH="aGVsbG86d29ybGQ=" \
+           -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web  
+           
+           登录成功后查BASIC_AUTH值
+         cat /root/.docker/config.json 查看basic_auth的值    
+         浏览器访问：http://172.17.40.10:8080/
+           
 
 #compose file
 
