@@ -1,6 +1,6 @@
-###单台宿主机跑swarm/kubernet/rencher集群
+# 单台宿主机跑swarm/kubernet/rencher集群
 
-###1.准备docker环境和docker-compose环境
+## 1.准备docker环境和docker-compose环境
 
 ```
 curl -fsSL https://get.docker.com/ | sh 
