@@ -8,3 +8,9 @@ systemctl start docker
 curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
+
+## 2.pull docker 镜像
+
+```
+docker pull docker
+```
